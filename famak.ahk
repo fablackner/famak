@@ -1,205 +1,64 @@
 #Persistent
 #MaxHotkeysPerInterval 999999999
-#Include %A_LineFile%\..\VirtualDesktopApi.ahk
-SetDesktopName(0, "OnLine! 🛜")
-SetDesktopName(1, "GetCoding! 👽")
-SetDesktopName(2, "Terminal! ⌨️")
-SetDesktopName(3, "GetUi! 🌐")
-SetDesktopName(4, "GetAi! 🎨")
-SetDesktopName(5, "FileEx! 📁")
-SetDesktopName(6, "Comunicate! 🤖")
 
+#If (keymapIsActive)
 
-famakIsActive := true
-
-#SC001::
-	{
-		famakIsActive := false
-		stopBox("famak - STOPPED")
-	}
-return
-
-#SC00E::
-	{
-		famakIsActive := true
-		activeBox("famak - ACTIVE")
-	}
-return
-
-; side wheel up
-NumpadDown::Send, {LCtrl Down}{LWin Down}{Left}{LWin Up}{LCtrl Up}
-; side wheel down
-NumpadUp::Send, {LCtrl Down}{LWin Down}{Right}{LWin Up}{LCtrl Up}
-
-; gesture up
-NumpadIns::Send, {LWin Down}e{LWin Up}
-; gesture down
-NumpadDel::Send, {LWin Down}d{LWin Up}
-; gesture left
-NumpadHome::Send, {LWin Down}{LShift Down}s{LShift Up}{LWin Up}
-; gesture right
-NumpadEnd::Send, {LCtrl Down}{LShift Down}n{LShift Up}{LCtrl Up}
-
-; gesture center
-NumpadClear::Send, {LWin Down}v{LWin Up}
-
-; mode click
-NumpadPgDn::Send, {LCtrl Down}{Click}{LCtrl Up}
-
-; middle click
-NumpadPgUp::Send, {Click, Middle}
-
-#If (famakIsActive)
-
-	; side click left
-	*NumpadLeft::Sym := true
-	*NumpadLeft Up::Sym := false
-
-	; side click right
-	*NumpadRight::Cur := true
-	*NumpadRight Up::Cur := false
-
-	*CapsLock::LControl
-	*SC01B::RShift
-	*SC031::LWin
-
-	*SC138::Cur := true
-	*SC138 Up::Cur := false
-
-	*SC00F::
-		Cur := true
-		Sym := true
-	return
-
-	*SC00F Up::
-		Cur := false
-		Sym := false
-	return
-
-	*SC023::Send, {LCtrl Down}{LAlt Down}
-	*SC023 Up::Send, {LAlt Up}{LCtrl Up}
-
-	*SC136::Send, {LAlt Down}{LWin Down}
-	*SC136 Up::Send, {LWin Up}{LAlt Up}
-
+	SC002::Send, !{Left}
+	SC003::Send, !{Right}
+	SC004::^y
+	SC005::^z
+	SC006::Send, {f5}
+	SC007::Send, {f6}
+	SC008::Send, {f7}
+	SC009::Send, {f8}
+	SC00A::Send, {f9}
+	SC00B::Send, {pagedown}
+	SC00C::Send, {pageup}
+	SC00D::!+b
+	*SC00F::Exo := true
+	*SC00F Up::Exo := false
+	SC010::Send, q
+	SC011::Send, w
+	SC012::Send, c
+	SC013::Send, p
+	SC014::Send, b
+	SC015::Send, {volumedown}
+	SC016::Send, j
+	SC017::Send, l
+	SC018::Send, u
+	SC019::Send, z
+	SC01A::Send, {Backspace}
+	*SC01B::Shift := true
+	*SC01B Up::Shift := false
+	SC03A::Send, {leftcontrol}
+	SC01E::Send, a
+	SC01F::Send, r
+	SC020::Send, s
+	SC021::Send, t
+	SC022::Send, g
+	SC023::^!h
+	SC024::Send, m
+	SC025::Send, n
+	SC026::Send, e
+	SC027::Send, i
+	SC028::Send, o
 	*SC02B::Sym := true
 	*SC02B Up::Sym := false
+	SC056::Send, y
+	SC02C::Send, ;
+	SC02D::Send, f
+	SC02E::Send, d
+	SC02F::Send, v
+	SC030::Send, x
+	SC031::Send, {leftmeta}
+	SC032::Send, k
+	SC033::Send, h
+	SC034::Send, [
+	SC035::Send, '
+	*SC138::Nav := true
+	*SC138 Up::Nav := false
 
-#If (famakIsActive and Cur and Sym)
-
-	SC002::^+1
-	SC003::^+2
-	SC004::^c
-	SC005::^v
-	SC006::F2
-	SC007::F3
-	SC008::F4
-	SC009::F10
-	SC00A::F11
-	SC00B::!+b
-	SC00C::+F10
-	SC00D::F12
-
-	SC010::Send, {LCtrl Down}{LWin Down}{Left}{LWin Up}{LCtrl Up}
-	SC011::Send, {LCtrl Down}{LWin Down}{Right}{LWin Up}{LCtrl Up}
-	SC012::^!Up
-	SC013::^PgUp
-	SC014::^PgDn 
-	SC015::Send {Volume_Up}
-	SC016::@
-	SC017::7
-	SC018::8
-	SC019::9
-	SC01A::BackSpace
-
-	SC01E::^!Home
-	SC01F::!Home
-	SC020::^!Down
-	SC021::!End
-	SC022::^!End
-	SC023::Return
-	SC024::.
-	SC025::4
-	SC026::5
-	SC027::6
-	SC028::0
-
-	SC056::DllCall("PowrProf.dll\SetSuspendState", "int", 0, "int", 0, "int", 0)
-	SC02c::Return
-	SC02d::Return
-	SC02e::^!PgDn
-	SC02f::^!PgUp
-	SC030::Delete
-	SC031::Return
-	SC032::1
-	SC033::2
-	SC034::3
-	SC035::ß
-
-	SC039::enter
-
-#If (famakIsActive and Cur and !Sym)
-
-	SC002::GoToDesktopNumber(0)
-	SC003::GoToDesktopNumber(1)
-	SC004::GoToDesktopNumber(2)
-	SC005::GoToDesktopNumber(3)
-	SC006::GoToDesktopNumber(4)
-	SC007::GoToDesktopNumber(5)
-	SC008::GoToDesktopNumber(6)
-	SC009::GoToDesktopNumber(7)
-	SC00A::GoToDesktopNumber(8)
-	SC00B::^!Insert
-	SC00C::^!+Insert
-	SC00D::#Tab
-	SC00E::!F4
-
-	SC010::^!w
-	SC011::Left
-	SC012::Up
-	SC013::Right
-	SC014::^!t
-	SC015::Send {Volume_Mute}
-	SC016::Return
-	SC017::Return
-	SC018::[
-	SC019::]
-	SC01A::Esc
-
-	SC01E::Home
-	SC01F::Send, ^{Left}
-	+SC01F::Send, ^+{Left}
-	!SC01F::Send, ^!{Left}
-	#SC01F::Send, #^{Left}
-	SC020::Down
-	SC021::Send, ^{Right}
-	+SC021::Send, ^+{Right}
-	!SC021::Send, ^!{Right}
-	#SC021::Send, #^{Right}
-	SC022::End
-	SC023::Return
-	SC024::Return
-	SC025::Send, (
-	+SC025::Send, {{}
-	SC026::Send, )
-	+SC026::Send, {}}
-	SC027::^l
-	SC028::Delete
-
-	SC056::$
-	SC02c::Insert
-	SC02d::'
-	SC02e::!PgDn
-	SC02f::!PgUp
-	SC030::"
-	SC031::Return
-	SC032::{
-	SC033::}
-	SC034::Return
-	SC035::Return
-	SC039::Tab
-
-#If (famakIsActive and !Cur and Sym)
+#If (keymapIsActive and Sym)
 
 	SC002::^1
 	SC003::^2
@@ -210,101 +69,191 @@ NumpadPgUp::Send, {Click, Middle}
 	SC008::^7
 	SC009::^8
 	SC00A::^9
-	SC00B::Return
-	SC00C::Return
-	SC00D::Return
+	SC00B::Send, ^{10}
+	SC00C::Send, ^{11}
+	SC00D::Send, ^{12}
+	*SC00F::Exo := true
+	*SC00F Up::Exo := false
+	SC010::Send, {G-]}
+	SC011::+1
+	SC012::+7
+	SC013::Send, {G-102nd}
+	SC014::+6
+	SC015::Send, {noop}
+	SC016::Send, {noop}
+	SC017::Send, {noop}
+	SC018::Send, {noop}
+	SC019::Send, {noop}
+	SC01A::Send, {noop}
+	SC01B::Send, {rightshift}
+	SC03A::Send, {leftcontrol}
+	SC01E::Send, /
+	SC01F::Send, ]
+	SC020::+]
+	SC021::Send, .
+	SC022::Send, ,
+	SC023::Send, {G--}
+	SC024::Send, =
+	SC025::Send, {G--}
+	SC026::Send, `
+	SC027::+=
+	SC028::+`
+	*SC02B::Sym := true
+	*SC02B Up::Sym := false
+	SC056::Send, {102nd}
+	SC02C::Send, \
+	SC02D::Send, +{102nd}
+	SC02E::+0
+	SC02F::+,
+	SC030::+-
+	SC031::Send, {noop}
+	SC032::Send, {noop}
+	SC033::+5
+	SC034::Send, {noop}
+	SC035::Send, {noop}
+	SC039::Send, >
+	*SC138::Exo := true
+	*SC138 Up::Exo := false
 
-	SC010::~
-	SC011::!
-	SC012::/
-	SC013::|
-	SC014::&
-	SC015::Return
-	SC016::Return
-	SC017::Return
-	SC018::Return
-	SC019::Return
-	SC01A::Return
+#If (keymapIsActive and Nav)
 
-	SC01E::-
-	SC01F::+
-	SC020::*
-	SC021::.
-	SC022::,
-	SC023::Return
-	SC024::SendInput, ``
-	SC025::\
-	SC026::^
-	SC027::Send {´}
-	SC028::Send {°}
+	SC002::!1
+	SC003::!2
+	SC004::!3
+	SC005::!4
+	SC006::!5
+	SC007::!6
+	SC008::!7
+	SC009::!8
+	SC00A::!9
+	SC00B::!!0
+	SC00C::!!1
+	SC00D::!!2
+	SC00E::Send, !{f4}
+	*SC00F::Exo := true
+	*SC00F Up::Exo := false
+	SC010::^!w
+	SC011::Send, {Left}
+	SC012::Send, {Up}
+	SC013::Send, {Right}
+	SC014::^!t
+	SC015::Send, {mute}
+	SC016::Send, {brightnessdown}
+	SC017::Send, {brightnessup}
+	SC018::Send, {G-8}
+	SC019::Send, {G-9}
+	SC01A::Send, {Esc}
+	SC01B::Send, {rightshift}
+	SC03A::Send, {leftcontrol}
+	SC01E::Send, {Home}
+	SC01F::Send, ^{Left}
+	SC020::Send, {Down}
+	SC021::Send, ^{Right}
+	SC022::Send, {End}
+	SC023::Send, {noop}
+	SC024::Send, {noop}
+	SC025::+8
+	SC026::+9
+	SC027::^l
+	SC028::Send, {Delete}
+	*SC02B::Exo := true
+	*SC02B Up::Exo := false
+	SC056::+4
+	SC02C::Send, {Insert}
+	SC02D::+\
+	SC02E::Send, !{pagedown}
+	SC02F::Send, !{pageup}
+	SC030::+2
+	SC031::Send, {noop}
+	SC032::Send, {G-7}
+	SC033::Send, {G-0}
+	SC034::Send, {noop}
+	SC035::Send, {noop}
+	SC039::Send, {Tab}
+	*SC138::Nav := true
+	*SC138 Up::Nav := false
 
-	SC056::<
-	SC02c::#
-	SC02d::>
-	SC02e::=
-	SC02f::;
-	SC030::?
-	SC031::Return
-	SC032::Return
-	SC033::%
-	SC034::Return
-	SC035::Return
-	SC039:::
+#If (keymapIsActive and Exo)
 
-#If (famakIsActive and !Cur and !Sym)
+	SC002::+^1
+	SC003::+^2
+	SC004::+^c
+	SC005::+^v
+	SC006::Send, {f2}
+	SC007::Send, {f3}
+	SC008::Send, {f4}
+	SC009::Send, {f10}
+	SC00A::Send, {f11}
+	SC00B::macro2(50, 50, scrolldown)
+	SC00C::macro2(50, 50, scrollup)
+	SC00D::Send, +{f10}
+	SC00E::Send, ^!{Esc}
+	*SC00F::Exo := true
+	*SC00F Up::Exo := false
+	SC010::Send, ^!{Left}
+	SC011::Send, ^!{Right}
+	SC012::Send, ^!{Up}
+	SC013::Send, ^{pageup}
+	SC014::Send, ^{pagedown}
+	SC015::Send, {volumeup}
+	SC016::Send, {G-q}
+	SC017::Send, 7
+	SC018::Send, 8
+	SC019::Send, 9
+	SC01A::Send, {Backspace}
+	SC01B::Send, {rightshift}
+	SC03A::Send, {leftcontrol}
+	SC01E::Send, ^!{Home}
+	SC01F::Send, !{Home}
+	SC020::Send, ^!{Down}
+	SC021::Send, !{End}
+	SC022::Send, ^!{End}
+	SC023::Send, {noop}
+	SC024::Send, .
+	SC025::Send, 4
+	SC026::Send, 5
+	SC027::Send, 6
+	SC028::Send, 0
+	*SC02B::Sym := true
+	*SC02B Up::Sym := false
+	SC056::Send, {sleep}
+	SC02C::Send, {noop}
+	SC02D::Send, {noop}
+	SC02E::Send, ^!{pagedown}
+	SC02F::Send, ^!{pageup}
+	SC030::Send, {Delete}
+	SC031::Send, {noop}
+	SC032::Send, 1
+	SC033::Send, 2
+	SC034::Send, 3
+	SC035::Send, -
+	SC039::!!w
+	*SC138::Exo := true
+	*SC138 Up::Exo := false
 
-	SC029::Esc
-	SC002::Send, {LAlt Down}{Left}{LAlt Up}
-	SC003::Send, {LAlt Down}{Right}{LAlt Up}
-	SC004::^z
-	SC005::^y
-	SC006::F5
-	SC007::F6
-	SC008::F7
-	SC009::F8
-	SC00A::F9
-	SC00B::PgDn
-	SC00C::PgUp
-	SC00D::#t
+#If (keymapIsActive and Shift)
 
-	SC010::q
-	SC011::w
-	SC012::c
-	SC013::p
-	SC014::b
-	SC015::Send {Volume_Down}
-	SC016::j
-	SC017::l
-	SC018::u
-	SC019::y
-	SC01A::BackSpace
-
-	SC01E::a
-	SC01F::r
-	SC020::s
-	SC021::t
-	SC022::g
-	SC023::^!h
-	SC024::m
-	SC025::n
-	SC026::e
-	SC027::i
-	SC028::o
-
-	SC056::z
-	SC02c::ö
-	SC02d::f
-	SC02e::d
-	SC02f::v
-	SC030::x
-	SC032::k
-	SC033::h
-	SC034::ü
-	SC035::ä
-
-	+SC039::Send {_}
+	SC039::Send, ?
 
 #If
+
+; --- Boilerplate ---
+
+keymapIsActive := true
+
+#SC001::
+	{
+		keymapIsActive := false
+		stopBox("keymap - STOPPED")
+	}
+return
+
+#SC00E::
+	{
+		keymapIsActive := true
+		activeBox("keymap - ACTIVE")
+	}
+return
 
 stopBox(text){
 	Gui, +AlwaysOnTop +ToolWindow -SysMenu -Caption
